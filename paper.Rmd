@@ -1,0 +1,88 @@
+---
+subtitle: "Pollinator guild for a small strip of *Solidago* on WCU campus"
+author: "J. Ted Hillert"
+date: "`r Sys.Date()`"
+
+output:
+  bookdown::word_document2:
+    toc: no
+    number_sections: FALSE
+    always_allow_html: yes
+    
+bibliography:
+- aRticles.bib
+- R-packages.bib
+
+csl: ecology.csl
+
+---
+
+```{r setup, include=FALSE}
+
+
+knitr::opts_chunk$set(echo = FALSE)
+
+library(broom)
+library(car)
+library(emmeans)
+library(ggfortify)
+library(kableExtra)
+library(latex2exp)
+library(multcomp)
+library(patchwork)
+library(tidyverse)
+
+papaja::r_refs(file = "paper.bib")
+
+options(scipen = 99) # a "trick" to keep R from using scientific notation.
+
+options(knitr.kable.NA = "")
+
+
+```
+
+
+## Abstract
+
+
+## Introduction
+
+
+## Methods
+
+
+## Results
+
+
+## Discussion
+
+
+## Conclusion
+
+
+\newpage
+
+
+# References
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
