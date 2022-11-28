@@ -4,10 +4,10 @@ author: "J. Ted Hillert"
 date: "`r Sys.Date()`"
 
 output:
-  bookdown::word_document2:
+  bookdown::html_document2:
     toc: no
     number_sections: FALSE
-    always_allow_html: yes
+ #   always_allow_html: true
     
 bibliography:
 - aRticles.bib
@@ -25,12 +25,16 @@ knitr::opts_chunk$set(echo = FALSE)
 library(broom)
 library(car)
 library(emmeans)
+library(ggplot2)
+library(ggrepel)
 library(ggfortify)
 library(kableExtra)
 library(latex2exp)
 library(multcomp)
 library(patchwork)
+library(readr)
 library(tidyverse)
+library(vegan)
 
 papaja::r_refs(file = "paper.bib")
 
@@ -60,110 +64,58 @@ data
 
 data$polltype<-factor(data$polltype, 
                    levels = c('honbee', 
-                              'bucabee',
-                              'wasp',
-                              'smbee',
-                              'beetle',
-                              'lbutterfly',
-                              'sbutterfly',
                               'flies',
+                              'wasp',
+                              'bucabee',
+                              'smbee',
+                              'sbutterfly',
+                              'lbutterfly',
+                              'beetle',
                               'ant'
                               ),
                    labels = c('Honeybee',
-                              'Carpenter and Bumblebee',
-                              'Wasp',
-                              'Small Bee',
-                              'Beetle',
-                              'Large Butterfly',
-                              'Small Butterfly',
                               'Flies',
+                              'Wasp',
+                              'BUCA Bee',
+                              'Small Bee',
+                              'Sm Butterfly',
+                              'Lg Butterfly',
+                              'Beetle',
                               'Ant'
                               )
                    )
 
 ```
 
-```{r scatter, eval=FALSE, include=FALSE}
-#| fig.cap = "Scatterplot of male longevity versus thorax length."
-
-ggplot(data) +
-  geom_histogram(aes(polltype,visits)) +
-  ylab("Number of Visits") +
-  xlab("Pollinator Type") +
-  theme_classic()
-
- ```
-
-```{r mod1, include=FALSE}
-#| fig.show = 'hide'
-
-mod1<-lm(visits~polltype+
-           replicates+
-           polltype:replicates,
-        data
-        )
-
-mod1
-
-autoplot(mod1)
-
-mod1tab<-Anova(mod1)
-
-mod1tab
-
-```
-
-```{r mod1tab, echo=FALSE}
-#| fig.show = 'hide'
-mod1tab$`Pr(>F)` <- format.pval(mod1tab$`Pr(>F)`,
-                                 eps = 0.0001,
-                                 digits = 4,
-                                 na.form = ""
-                                 )
-
-kbl(mod1tab, 
-    digits = c(3, 0, 3, 4), 
-    caption = "Test for homogeneity of slopes.",
-    align = "r"
-    ) |>
-    kable_classic(full = FALSE)
-    
-
-```
-
-```{r modplot, echo=FALSE}
+```{r boxplot, echo=FALSE}
 #| fig.cap=""
-
-data$pred<-predict(mod1)
-
-plot<- ggplot(data) +
-  geom_point(aes(x = polltype, 
+                   
+box<- ggplot(data) +
+  geom_boxplot(aes(x = polltype, 
                  y = visits, 
                  group = polltype, 
-                 color = polltype,
-                 shape = polltype)
+                 color = polltype
+                 )
              ) +
-#  geom_line(aes(x = polltype, 
-#                y = pred, 
-#                group = polltype, 
-#                linetype = polltype, 
-#                color = polltype)
-#            ) +
   scale_y_continuous(
     name = 'Number of Flower Visits'
   )+
   scale_x_discrete(
     name = 'Pollinator Type'
-    ) +
-  scale_shape_discrete(name = 'Females') +
-  scale_color_discrete(name = 'Females') +
-  scale_linetype_discrete(name = 'Females') +
+    )+
   theme_classic(base_size = 10) +
   theme(legend.position = "none")
 
-plot
+box
 
 ```
+```{r shannon, echo=FALSE}
+
+div<-diversity(data, "shannon")
+div
+
+```
+
 
 ## Discussion
 
