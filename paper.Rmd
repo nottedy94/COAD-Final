@@ -4,7 +4,7 @@ author: "J. Ted Hillert"
 date: "`r Sys.Date()`"
 
 output:
-  bookdown::word_document2:
+  bookdown::html_document2:
     toc: no
     number_sections: FALSE
     always_allow_html: yes
@@ -31,6 +31,7 @@ library(latex2exp)
 library(multcomp)
 library(patchwork)
 library(tidyverse)
+library(vegan)
 
 papaja::r_refs(file = "paper.bib")
 
@@ -56,114 +57,65 @@ options(knitr.kable.NA = "")
 ```{r import, include=FALSE}
 data<-read_csv("data.csv")
 
-data
 
 data$polltype<-factor(data$polltype, 
                    levels = c('honbee', 
-                              'bucabee',
-                              'wasp',
-                              'smbee',
-                              'beetle',
-                              'lbutterfly',
-                              'sbutterfly',
                               'flies',
+                              'wasp',
+                              'bucabee',
+                              'smbee',
+                              'sbutterfly',
+                              'lbutterfly',
+                              'beetle',
                               'ant'
                               ),
                    labels = c('Honeybee',
-                              'Carpenter and Bumblebee',
-                              'Wasp',
-                              'Small Bee',
-                              'Beetle',
-                              'Large Butterfly',
-                              'Small Butterfly',
                               'Flies',
+                              'Wasp',
+                              'BUCA bee',
+                              'Small bee',
+                              'Sm Butterfly',
+                              'Lg Butterfly',
+                              'Beetle',
                               'Ant'
                               )
                    )
+data<-data[-c(6,7)]
+
+
+view(data)
 
 ```
 
-```{r scatter, eval=FALSE, include=FALSE}
-#| fig.cap = "Scatterplot of male longevity versus thorax length."
+```{r boxplot, echo=FALSE, message=FALSE, warning=FALSE}
+#| fig.cap="Dominance Diversity curve for pollinators of a small strip of wildflowers dominated by *Solidago* spp.",
+#| out.width="300%",
+#| fig.align="center"
 
-ggplot(data) +
-  geom_histogram(aes(polltype,visits)) +
-  ylab("Number of Visits") +
-  xlab("Pollinator Type") +
-  theme_classic()
 
- ```
-
-```{r mod1, include=FALSE}
-#| fig.show = 'hide'
-
-mod1<-lm(visits~polltype+
-           replicates+
-           polltype:replicates,
-        data
-        )
-
-mod1
-
-autoplot(mod1)
-
-mod1tab<-Anova(mod1)
-
-mod1tab
-
-```
-
-```{r mod1tab, echo=FALSE}
-#| fig.show = 'hide'
-mod1tab$`Pr(>F)` <- format.pval(mod1tab$`Pr(>F)`,
-                                 eps = 0.0001,
-                                 digits = 4,
-                                 na.form = ""
-                                 )
-
-kbl(mod1tab, 
-    digits = c(3, 0, 3, 4), 
-    caption = "Test for homogeneity of slopes.",
-    align = "r"
-    ) |>
-    kable_classic(full = FALSE)
-    
-
-```
-
-```{r modplot, echo=FALSE}
-#| fig.cap=""
-
-data$pred<-predict(mod1)
-
-plot<- ggplot(data) +
-  geom_point(aes(x = polltype, 
-                 y = visits, 
-                 group = polltype, 
-                 color = polltype,
-                 shape = polltype)
-             ) +
-#  geom_line(aes(x = polltype, 
-#                y = pred, 
-#                group = polltype, 
-#                linetype = polltype, 
-#                color = polltype)
-#            ) +
+plot<-ggplot(data)+
+  geom_boxplot(aes(x=polltype, 
+                 y=visits, 
+                 group=polltype, 
+                 color=polltype,
+                 shape=polltype
+                 )
+             )+
   scale_y_continuous(
-    name = 'Number of Flower Visits'
-  )+
+    name='Number of Flower Visits'
+    )+
   scale_x_discrete(
-    name = 'Pollinator Type'
-    ) +
-  scale_shape_discrete(name = 'Females') +
-  scale_color_discrete(name = 'Females') +
-  scale_linetype_discrete(name = 'Females') +
-  theme_classic(base_size = 10) +
-  theme(legend.position = "none")
+    name='Pollinator Type'
+    )+
+  theme_classic(base_size=10)+
+  theme(legend.position="none")
+
 
 plot
 
 ```
+
+
 
 ## Discussion
 
