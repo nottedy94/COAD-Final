@@ -1,13 +1,13 @@
 ---
-subtitle: "Pollinator guild for a small strip of *Solidago* on WCU campus"
+subtitle: "Pollinator diversity and abundance on WCU campus"
 author: "J. Ted Hillert"
 date: "`r Sys.Date()`"
 
 output:
-  bookdown::html_document2:
+  bookdown::word_document2:
     toc: no
     number_sections: FALSE
-    always_allow_html: yes
+    always_allow_html: true
     
 bibliography:
 - aRticles.bib
@@ -24,14 +24,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 library(broom)
 library(car)
-library(emmeans)
 library(ggfortify)
-library(kableExtra)
 library(latex2exp)
-library(multcomp)
-library(patchwork)
 library(tidyverse)
-library(vegan)
 
 papaja::r_refs(file = "paper.bib")
 
@@ -51,8 +46,11 @@ options(knitr.kable.NA = "")
 
 ## Methods
 
+The study site is located on Western Carolina University campus at approximately 35.3° N by -83.1° W. The plot is mainly dominated by *Solidago* species with a few other wildflowers such as, species and species. We sampled pollinator visits to flowers along a four meter portion of the survey site for 10 minutes at a time. Each pollinator that visits a flower counts as a visit and another visit if the visit another flower. Pollinators that were surveyed included honeybees, large and small butterflies (as two types), beetles, flies, carpenter bees and bumblebees (as one type), wasps, and ants. After the first ten minute interval, surveyors moved to another location along the strip and repeated the visit counts a second time. Data were compiled and entered for analysis in R Studio [@R] and a dominance diversity curve was created using functions from [@R-ggplot2]. Our dominance diversity curve was then used to calculate Shannon Diversity. 
 
 ## Results
+
+
 
 ```{r import, include=FALSE}
 data<-read_csv("data.csv")
@@ -88,8 +86,8 @@ view(data)
 ```
 
 ```{r boxplot, echo=FALSE, message=FALSE, warning=FALSE}
-#| fig.cap="Dominance Diversity curve for pollinators of a small strip of wildflowers dominated by *Solidago* spp.",
-#| out.width="300%",
+#| fig.cap="Pollinator abundance and diversity curve for a strip of wildflowers on WCU campus.",
+#| out.width="100%"
 #| fig.align="center"
 
 
