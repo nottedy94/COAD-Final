@@ -4,7 +4,7 @@ author: "J. Ted Hillert"
 date: "`r Sys.Date()`"
 
 output:
-  bookdown::word_document2:
+  bookdown::html_document2:
     toc: no
     number_sections: FALSE
     always_allow_html: true
@@ -24,9 +24,12 @@ knitr::opts_chunk$set(echo = FALSE)
 
 library(broom)
 library(car)
+library(ggplot2)
+library(ggrepel)
 library(ggfortify)
-library(latex2exp)
+library(readr)
 library(tidyverse)
+library(vegan)
 
 papaja::r_refs(file = "paper.bib")
 
@@ -90,15 +93,14 @@ view(data)
 #| out.width="100%"
 #| fig.align="center"
 
-
-plot<-ggplot(data)+
-  geom_boxplot(aes(x=polltype, 
-                 y=visits, 
-                 group=polltype, 
-                 color=polltype,
-                 shape=polltype
+                   
+box<- ggplot(data) +
+  geom_boxplot(aes(x = polltype, 
+                 y = visits, 
+                 group = polltype, 
+                 color = polltype
                  )
-             )+
+             ) +
   scale_y_continuous(
     name='Number of Flower Visits'
     )+
@@ -108,10 +110,17 @@ plot<-ggplot(data)+
   theme_classic(base_size=10)+
   theme(legend.position="none")
 
-
-plot
+box
 
 ```
+
+```{r shannon, echo=FALSE}
+
+div<-diversity(data, "shannon")
+div
+
+```
+
 
 
 
