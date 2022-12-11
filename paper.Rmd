@@ -81,7 +81,7 @@ data$polltype<-factor(data$polltype,
                               'Ant'
                               )
                    )
-data<-data[-c(6,7)]
+data
 
 
 view(data)
@@ -108,18 +108,14 @@ box<- ggplot(data) +
     name='Pollinator Type'
     )+
   theme_classic(base_size=10)+
-  theme(legend.position="none")
+  theme(legend.position="none")+
+  geom_abline()
 
 box
 
 ```
 
-```{r shannon, echo=FALSE}
 
-div<-diversity(data, "shannon")
-div
-
-```
 
 
 
