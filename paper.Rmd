@@ -4,7 +4,7 @@ author: "J. Ted Hillert"
 date: "`r Sys.Date()`"
 
 output:
-  bookdown::html_document2:
+  bookdown::word_document2:
     toc: no
     number_sections: FALSE
     always_allow_html: true
@@ -40,21 +40,6 @@ options(knitr.kable.NA = "")
 
 ```
 
-
-## Abstract
-
-
-## Introduction
-
-
-## Methods
-
-The study site is located on Western Carolina University campus at approximately 35.3° N by -83.1° W. The plot is mainly dominated by *Solidago* species with a few other wildflowers such as, species and species. We sampled pollinator visits to flowers along a four meter portion of the survey site for 10 minutes at a time. Each pollinator that visits a flower counts as a visit and another visit if the visit another flower. Pollinators that were surveyed included honeybees, large and small butterflies (as two types), beetles, flies, carpenter bees and bumblebees (as one type), wasps, and ants. After the first ten minute interval, surveyors moved to another location along the strip and repeated the visit counts a second time. Data were compiled and entered for analysis in R Studio [@R] and a dominance diversity curve was created using functions from [@R-ggplot2]. Our dominance diversity curve was then used to calculate Shannon Diversity. 
-
-## Results
-
-
-
 ```{r import, include=FALSE}
 data<-read_csv("data.csv")
 
@@ -74,9 +59,9 @@ data$polltype<-factor(data$polltype,
                               'Flies',
                               'Wasp',
                               'BUCA bee',
-                              'Small bee',
-                              'Sm Butterfly',
-                              'Lg Butterfly',
+                              'Sm bee',
+                              'Sm buttfly',
+                              'Lg buttfly',
                               'Beetle',
                               'Ant'
                               )
@@ -90,7 +75,7 @@ view(data)
 
 ```{r boxplot, echo=FALSE, message=FALSE, warning=FALSE}
 #| fig.cap="Pollinator abundance and diversity curve for a strip of wildflowers on WCU campus.",
-#| out.width="100%"
+#| out.width="200%",
 #| fig.align="center"
 
                    
@@ -108,22 +93,21 @@ box<- ggplot(data) +
     name='Pollinator Type'
     )+
   theme_classic(base_size=10)+
-  theme(legend.position="none")+
-  geom_abline()
+  theme(legend.position="none")
 
 box
 
 ```
 
 
+@Moro2009; 
+@Moro2019; 
+@Moro2021; 
+@Sena2015; 
+@Maci2018;
+@Solidago
 
 
-
-
-## Discussion
-
-
-## Conclusion
 
 
 \newpage
