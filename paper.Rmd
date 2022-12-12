@@ -73,8 +73,12 @@ view(data)
 
 ```
 
+Studies to date indicate that wild pollinator diversity has been in global decline for the last few decades with almost 1 in 4 bee species at risk of extinction [@Sena2015; @Kope2017]. Leading causes for the loss of biodiversity are from climate change and anthropogenic causes - agricultural intensification, habitat destruction and fragmentation, pesticide use, and urbanization. Diversity in early successional meadow habitats leads to diversity in pollinators by supplying multiple food sources for generalist and specialised pollinators. *Solidago spp.* are native to North America with nearly 120 species and many cultivars. It is a late season bloomer beginning around May and rapidly growing through August when it blooms and provides an alternative food source. Outside of North America, *Solidago* is a rapidly proliferating invasive species that can outcompete native species by excreting alleleopathic compounds, clonal growth, high dispersal rate, high growth rate and shading effect over other plants [@Moro2009; @Moro2021]. Understanding the impacts of invasive species on plant-pollinator diversity leads to better understanding of management practices to prevent further invasions. A small strip of *Solidago* on WCU campus was used to sample pollinator diversity and a literature review was conducted to examine the role of this plant as an invader and the management implications. 
+
+The strip of wildflowers on WCU campus was dominated by *Solidago spp* with a few other species. When a pollinator landed on a flower for greater than 2 seconds, it counted as a "visit". If that pollinator visited another flower, it counted as a second "visit". Nineteen observers surveyed a one meter transect of wildflowers for two ten-minute intervals for a total of 38 observations of 1136 flower visits. Nine species types were identified - honeybees, bumble and carpenter bees, small bees, wasps, small butterflies, large butterflies, beetles, flies, and ants. Data were compiled and Shannon's Diversity Index was calculated to estimate pollinator diversity. 
+
 ```{r boxplot, echo=FALSE, message=FALSE, warning=FALSE}
-#| fig.cap="Pollinator abundance and diversity curve for a strip of wildflowers on WCU campus.",
+#| fig.cap="Pollinator abundance and diversity curve for a strip of wildflowers dominated by Solidago species on WCU campus. Boxes are color coordinated to pollinator type with the thicker bar depicting the mean number of visits. Dots indicate possible outlying data points. Shannon Diversity Index = 1.89 ans species evenness = 0.845. Figure generated from 38 observations of 1136 total pollinator flower visits.",
 #| out.width="200%",
 #| fig.align="center"
 
@@ -98,14 +102,6 @@ box<- ggplot(data) +
 box
 
 ```
-
-
-@Moro2009; 
-@Moro2019; 
-@Moro2021; 
-@Sena2015; 
-@Maci2018;
-@Solidago
 
 
 
